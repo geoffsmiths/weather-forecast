@@ -1,8 +1,10 @@
-# weather-forecast
+# A simple Weather Forecast app
 
-Please note: Replace the [API_KEY] with your actual API_KEY. Sign up for an API Key here [Openweather](https://home.openweathermap.org/)
+Just run in terminal `API_KEY_OPENWEATHER=[API_KEY] npm start`
 
-Just run `API_KEY_OPENWEATHER=[API_KEY] npm start`
+Please note: Replace the `[API_KEY]` with your actual API_KEY.
+
+Sign up for an API Key at [Openweather](https://home.openweathermap.org/)
 
 ## Dependencies
 
@@ -10,3 +12,4 @@ Just run `API_KEY_OPENWEATHER=[API_KEY] npm start`
 - [Chartjs](https://www.chartjs.org/docs/latest/charts/line.html)
 - [Geolocation](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/geolocation)
 - [Openweather](https://home.openweathermap.org/)
+- [ReactBootstrap](https://react-bootstrap.netlify.app)
