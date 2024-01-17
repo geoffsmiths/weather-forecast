@@ -1,4 +1,4 @@
-import { Card, Container, Row, Col, Table } from "react-bootstrap";
+import { Container, Row, Col, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 import {

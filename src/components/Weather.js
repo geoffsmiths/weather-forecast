@@ -1,12 +1,4 @@
-import {
-  Card,
-  Button,
-  Col,
-  Container,
-  ListGroup,
-  Row,
-  Table,
-} from "react-bootstrap";
+import { Card, Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { initGeoLocation } from "../store/interactions";
@@ -44,26 +36,6 @@ const Weather = () => {
       ":" +
       myDate.getSeconds()
     );
-  };
-
-  const getTemperatureIcon = (temperature) => {
-    if (temperature <= 5) {
-      return icon({ name: "temperature-low" });
-    }
-
-    if (temperature > 5 && temperature <= 15) {
-      return icon({ name: "temperature-quarter" });
-    }
-
-    if (temperature > 15 && temperature <= 25) {
-      return icon({ name: "temperature-three-quarters" });
-    }
-
-    if (temperature > 25) {
-      return icon({ name: "temperature-three-quarters" });
-    }
-
-    return icon({ name: "temperature-low" });
   };
 
   return (
