@@ -22,3 +22,4 @@ Sign up for an API Key at [Openweather](https://home.openweathermap.org/). Also 
 - [ReactBootstrap](https://react-bootstrap.netlify.app)
 - [Redux](https://redux.js.org/)
 - [FontAwesome](https://fontawesome.com)
+- [Babel](https://babeljs.io/)

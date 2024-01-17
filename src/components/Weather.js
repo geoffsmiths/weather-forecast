@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { initGeoLocation } from "../store/interactions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import WeatherForecast from "./WeatherForecast";
 
 const Weather = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const Weather = () => {
   };
 
   const weatherData = useSelector((state) => state.weather.value);
+
   let weatherIcon;
 
   if (weatherData.weather) {
@@ -54,8 +56,6 @@ const Weather = () => {
     }
 
     return icon({ name: "temperature-low" });
-
-    // return <FontAwesomeIcon icon={icon(name: 'temperature-low')}></FontAwesomeIcon>;
   };
 
   return (
@@ -65,7 +65,7 @@ const Weather = () => {
           <Col>
             <Container className="text-center">
               <h4 className="mt-4">
-                Het weer vandaag in {weatherData.name}{" "}
+                Weather in {weatherData.name}{" "}
                 <img src={weatherIcon} alt="weather icon" />
               </h4>
             </Container>
@@ -80,7 +80,7 @@ const Weather = () => {
                 <tbody>
                   <tr>
                     <td>
-                      Temperatuur{" "}
+                      Temperature{" "}
                       <FontAwesomeIcon
                         icon={getTemperatureIcon(weatherData.main.temp)}
                       />
@@ -89,7 +89,7 @@ const Weather = () => {
                   </tr>
                   <tr>
                     <td>
-                      Gevoelstemperatuur{" "}
+                      Feels like{" "}
                       <FontAwesomeIcon
                         icon={getTemperatureIcon(weatherData.main.feels_like)}
                       />
@@ -116,14 +116,14 @@ const Weather = () => {
                   </tr>
                   <tr>
                     <td>
-                      Luchtvochtigheid{" "}
+                      Humidity{" "}
                       <FontAwesomeIcon icon={icon({ name: "droplet" })} />
                     </td>
                     <td>{weatherData.main.humidity} %</td>
                   </tr>
                   <tr>
                     <td>
-                      Luchtdruk{" "}
+                      Pressure{" "}
                       <FontAwesomeIcon
                         icon={icon({
                           name: "down-left-and-up-right-to-center",
@@ -134,27 +134,27 @@ const Weather = () => {
                   </tr>
                   <tr>
                     <td>
-                      Windsnelheid{" "}
+                      Wind speed{" "}
                       <FontAwesomeIcon icon={icon({ name: "wind" })} />
                     </td>
-                    <td>{(weatherData.wind.speed * 1.609).toFixed(0)} km/u</td>
+                    <td>{weatherData.wind.speed} m/s</td>
                   </tr>
                   <tr>
                     <td>
-                      Zonsopkomst{" "}
-                      <FontAwesomeIcon icon={icon({ name: "sun" })} />
+                      Sunrise <FontAwesomeIcon icon={icon({ name: "sun" })} />
                     </td>
                     <td>{convertEpochToDatetime(weatherData.sys.sunrise)}</td>
                   </tr>
                   <tr>
                     <td>
-                      Zonsondergang{" "}
-                      <FontAwesomeIcon icon={icon({ name: "moon" })} />
+                      Sunset <FontAwesomeIcon icon={icon({ name: "moon" })} />
                     </td>
                     <td>{convertEpochToDatetime(weatherData.sys.sunset)}</td>
                   </tr>
                 </tbody>
               </Table>
+
+              <WeatherForecast></WeatherForecast>
             </Container>
           </Col>
         </Row>

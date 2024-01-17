@@ -1,5 +1,6 @@
 import { add } from "../features/geo/geoSlice";
 import { addWeather } from "../features/weather/weatherSlice";
+import { addWeatherForecast } from "../features/weather/weatherForecastSlice";
 
 let dispatch;
 
@@ -24,6 +25,19 @@ const successCallback = (position) => {
     .then((res) => res.json())
     .then((jsonData) => {
       dispatch(addWeather(jsonData));
+    });
+
+  fetch(
+    "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+      position.coords.latitude +
+      "&lon=" +
+      position.coords.longitude +
+      "&units=metric&appid=" +
+      process.env.REACT_APP_API_KEY_OPENWEATHER
+  )
+    .then((res) => res.json())
+    .then((jsonData) => {
+      dispatch(addWeatherForecast(jsonData));
     });
 };
 
