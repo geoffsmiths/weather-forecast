@@ -1,10 +1,13 @@
-# A simple Weather Forecast app
+# A simple Weather Forecast app in Dutch
 
 This app requires your permission for your location. Once approved, it will fetch location details and shows the weather of today.
 
 ## Installation
 
-Just run in terminal `API_KEY_OPENWEATHER=[API_KEY] npm start`
+In terminal:
+
+- First: `npm install`
+- Then: `API_KEY_OPENWEATHER=[API_KEY] npm start`
 
 Please note: Replace the `[API_KEY]` with your actual API_KEY.
 
