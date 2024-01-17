@@ -41,6 +41,8 @@ const WeatherForecast = () => {
   const weatherForecastData = useSelector(
     (state) => state.weatherforecast.value
   );
+  let hasData =
+    weatherForecastData && weatherForecastData.hasOwnProperty("list");
   let labels = [];
   let temps = [];
   let feelTemps = [];
@@ -96,11 +98,7 @@ const WeatherForecast = () => {
       <Row>
         <Col>
           <h4 className="mt-4">Temperature forecast linechart</h4>
-          {weatherForecastData.list && weatherForecastData.list.length > 0 ? (
-            <Line options={options} data={data} />
-          ) : (
-            ""
-          )}
+          {hasData ? <Line options={options} data={data} /> : ""}
 
           <h4 className="mt-4">Weather forecast upcoming 5 days</h4>
           <Table striped bordered hover size="sm">
@@ -112,16 +110,17 @@ const WeatherForecast = () => {
               </tr>
             </thead>
             <tbody>
-              {weatherForecastData.list.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.dt_txt}</td>
-                  <td>{item.main.temp} °C</td>
-                  <td>
-                    <img src={getIcon(item.weather[0].icon)} alt="dus" />{" "}
-                    {item.weather[0].description}
-                  </td>
-                </tr>
-              ))}
+              {hasData &&
+                weatherForecastData.list.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.dt_txt}</td>
+                    <td>{item.main.temp} °C</td>
+                    <td>
+                      <img src={getIcon(item.weather[0].icon)} alt="dus" />{" "}
+                      {item.weather[0].description}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         </Col>
