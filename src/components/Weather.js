@@ -1,4 +1,12 @@
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import {
+  Card,
+  Button,
+  Col,
+  Container,
+  ListGroup,
+  Row,
+  Table,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { initGeoLocation } from "../store/interactions";
@@ -64,96 +72,49 @@ const Weather = () => {
         <Row>
           <Col>
             <Container className="text-center">
-              <h4 className="mt-4">
-                Weather in {weatherData.name}{" "}
-                <img src={weatherIcon} alt="weather icon" />
-              </h4>
+              <h4 className="mt-4">Weather</h4>
             </Container>
             <Container>
-              <Table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      Temperature{" "}
-                      <FontAwesomeIcon
-                        icon={getTemperatureIcon(weatherData.main.temp)}
-                      />
-                    </td>
-                    <td>{weatherData.main.temp} °C</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Feels like{" "}
-                      <FontAwesomeIcon
-                        icon={getTemperatureIcon(weatherData.main.feels_like)}
-                      />
-                    </td>
-                    <td>{weatherData.main.feels_like} °C</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Min{" "}
-                      <FontAwesomeIcon
-                        icon={getTemperatureIcon(weatherData.main.temp_min)}
-                      />
-                    </td>
-                    <td>{weatherData.main.temp_min} °C</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Max{" "}
-                      <FontAwesomeIcon
-                        icon={getTemperatureIcon(weatherData.main.temp_max)}
-                      />
-                    </td>
-                    <td>{weatherData.main.temp_max} °C</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Humidity{" "}
-                      <FontAwesomeIcon icon={icon({ name: "droplet" })} />
-                    </td>
-                    <td>{weatherData.main.humidity} %</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Pressure{" "}
-                      <FontAwesomeIcon
-                        icon={icon({
-                          name: "down-left-and-up-right-to-center",
-                        })}
-                      />
-                    </td>
-                    <td>{weatherData.main.pressure} bar</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Wind speed{" "}
-                      <FontAwesomeIcon icon={icon({ name: "wind" })} />
-                    </td>
-                    <td>{weatherData.wind.speed} m/s</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Sunrise <FontAwesomeIcon icon={icon({ name: "sun" })} />
-                    </td>
-                    <td>{convertEpochToDatetime(weatherData.sys.sunrise)}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Sunset <FontAwesomeIcon icon={icon({ name: "moon" })} />
-                    </td>
-                    <td>{convertEpochToDatetime(weatherData.sys.sunset)}</td>
-                  </tr>
-                </tbody>
-              </Table>
-
+              <Card className="text-center">
+                <Card.Body>
+                  <Card.Title>
+                    <img src={weatherIcon} alt="weather icon" />{" "}
+                    {weatherData.name}, {weatherData.main.temp}°C
+                  </Card.Title>
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                  <ListGroup.Item>
+                    {" "}
+                    The high will be{" "}
+                    <strong>{weatherData.main.temp_max}°C</strong>, the low will
+                    be <strong>{weatherData.main.temp_min}°C</strong>.
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    It feels like{" "}
+                    <strong>{weatherData.main.feels_like}°C</strong>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    Humidity: <strong>{weatherData.main.humidity}%</strong>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    Pressure: <strong>{weatherData.main.pressure}hPa</strong>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <FontAwesomeIcon icon={icon({ name: "wind" })} />{" "}
+                    <strong>{weatherData.wind.speed} m/s</strong>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <FontAwesomeIcon icon={icon({ name: "sun" })} />{" "}
+                    {convertEpochToDatetime(weatherData.sys.sunrise)}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <FontAwesomeIcon icon={icon({ name: "moon" })} />{" "}
+                    {convertEpochToDatetime(weatherData.sys.sunset)}
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card>
+            </Container>
+            <Container>
               <WeatherForecast></WeatherForecast>
             </Container>
           </Col>
@@ -162,8 +123,8 @@ const Weather = () => {
         <Container className="text-center">
           <Row>
             <Col className="text-center">
-              <h4>Geen informatie beschikbaar</h4>
-              <Button onClick={handleClick}>Weersinformatie</Button>
+              <h4>No data present</h4>
+              <Button onClick={handleClick}>Show data</Button>
             </Col>
           </Row>
         </Container>

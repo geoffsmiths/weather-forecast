@@ -1,4 +1,4 @@
-import { Container, Row, Col, Table } from "react-bootstrap";
+import { Card, Container, Row, Col, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 import {
@@ -33,7 +33,7 @@ const WeatherForecast = () => {
       },
       title: {
         display: true,
-        text: "5 day forecast, 3hr interval",
+        text: "12 hourly Forecast",
       },
     },
   };
@@ -49,8 +49,8 @@ const WeatherForecast = () => {
   let maxTemps = [];
   let minTemps = [];
 
-  if (weatherForecastData.list && weatherForecastData.list.length > 0) {
-    weatherForecastData.list.forEach((element) => {
+  if (hasData) {
+    weatherForecastData.list.slice(0, 5).forEach((element) => {
       labels.push(element.dt_txt);
       temps.push(element.main.temp);
       feelTemps.push(element.main.feels_like);
@@ -93,6 +93,31 @@ const WeatherForecast = () => {
     return "http://openweathermap.org/img/w/" + iconPath + ".png";
   };
 
+  const convertEpochToDatetime = (_epoch) => {
+    let milliseconds = _epoch * 1000;
+    let date = new Date(milliseconds);
+
+    // Get the day, month, and day of the month
+    let day = date.toLocaleString("en-US", { weekday: "short" }); // First three letters of the day
+    let month = date.toLocaleString("en-US", { month: "short" }); // First three letters of the month
+    let dayOfMonth = date.getDate(); // Day of the month
+
+    let hours =
+      date.getHours().toString().length === 1
+        ? "0" + date.getHours()
+        : date.getHours();
+
+    let minutes =
+      date.getMinutes().toString().length === 1
+        ? "0" + date.getMinutes()
+        : date.getMinutes();
+
+    // Create the formatted date string
+    let formattedDate = `${day}, ${month}, ${dayOfMonth}, ${hours}:${minutes}`;
+
+    return formattedDate;
+  };
+
   return (
     <Container className="text-center">
       <Row>
@@ -100,7 +125,7 @@ const WeatherForecast = () => {
           <h4 className="mt-4">Temperature forecast linechart</h4>
           {hasData ? <Line options={options} data={data} /> : ""}
 
-          <h4 className="mt-4">Weather forecast upcoming 5 days</h4>
+          <h4 className="mt-4">Weather forecast 12 hourly</h4>
           <Table striped bordered hover size="sm">
             <thead>
               <tr>
@@ -111,11 +136,13 @@ const WeatherForecast = () => {
             </thead>
             <tbody>
               {hasData &&
-                weatherForecastData.list.map((item, index) => (
+                weatherForecastData.list.slice(0, 6).map((item, index) => (
                   <tr key={index}>
-                    <td>{item.dt_txt}</td>
-                    <td>{item.main.temp} °C</td>
-                    <td>
+                    <td className="align-middle">
+                      {convertEpochToDatetime(item.dt)}
+                    </td>
+                    <td className="align-middle">{item.main.temp} °C</td>
+                    <td className="align-middle">
                       <img src={getIcon(item.weather[0].icon)} alt="dus" />{" "}
                       {item.weather[0].description}
                     </td>
